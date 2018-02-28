@@ -1,6 +1,8 @@
 function drop_check(drop) {
   if (drop.position.y < 0) {
     drop.scale.y = 1;
+    // drop.scale.z = 1;
+    // drop.scale.x = 1;
     drop.position.y =  Math.floor(Math.random() * (50 - 30)) + 30;
   }
 }
@@ -79,6 +81,8 @@ function animate() {
       drop.position.y -= 1;
     } else {
       drop.scale.y = drop.scale.y * 0.5;
+      // drop.scale.z = drop.scale.z * 1.5;
+      // drop.scale.x = drop.scale.x * 1.5;
       drop.position.y -= .5;
     }
     drop_check(drop)
