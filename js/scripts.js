@@ -1,18 +1,19 @@
 function drop_check(drop) {
   if (drop.position.y < 0) {
     drop.scale.y = 1;
-    drop.position.y =  Math.floor(Math.random() * (20 - 1)) + 1;
+    drop.position.y =  Math.floor(Math.random() * (50 - 30)) + 30;
   }
 }
 
 function create_drops(num) {
-  var dropGeo = new THREE.CylinderGeometry(.1, .1, 5);
+  var dropGeo = new THREE.CylinderGeometry(.1, .1, 15);
   var dropMat = new THREE.MeshLambertMaterial( {color: 0x4286f4} );
   for(var i = 0; i < num; i++) {
     var drop = new THREE.Mesh( dropGeo, dropMat );
-    var posX = Math.floor(Math.random() * (10 - 1)) + 1;
-    var posZ = Math.floor(Math.random() * (10 - 1)) + 1;
-    var posY = Math.floor(Math.random() * (50 - 10)) + 10;
+    x = Math.random()*2*Math.PI
+    var posX = Math.cos(x) * 100 * Math.random();
+    var posZ = Math.sin(x) * 100 * Math.random();
+    var posY = Math.random() * (50 - 10) + 10;
     drop.position.x = posX;
     drop.position.z = posZ;
     drop.position.y = posY;
@@ -75,10 +76,10 @@ function animate() {
 
   drops.children.forEach(function(drop) {
     if (drop.position.y > 2.5) {
-      drop.position.y -= .5;
+      drop.position.y -= 1;
     } else {
       drop.scale.y = drop.scale.y * 0.5;
-      drop.position.y -= .25;
+      drop.position.y -= .5;
     }
     drop_check(drop)
 
