@@ -1,17 +1,18 @@
 function drop_check(drop) {
   if (drop.position.y < 0) {
+    drop.scale.y = 1;
     drop.position.y =  Math.floor(Math.random() * (20 - 1)) + 1;
   }
 }
 
 function create_drops(num) {
   var dropGeo = new THREE.CylinderGeometry(.1, .1, 5);
-  var dropMat = new THREE.MeshLambertMaterial( {color: 0xa0c4ff} );
+  var dropMat = new THREE.MeshLambertMaterial( {color: 0x4286f4} );
   for(var i = 0; i < num; i++) {
     var drop = new THREE.Mesh( dropGeo, dropMat );
     var posX = Math.floor(Math.random() * (10 - 1)) + 1;
     var posZ = Math.floor(Math.random() * (10 - 1)) + 1;
-    var posY = 20
+    var posY = Math.floor(Math.random() * (50 - 10)) + 10;
     drop.position.x = posX;
     drop.position.z = posZ;
     drop.position.y = posY;
@@ -34,7 +35,7 @@ var camera = new THREE.PerspectiveCamera(
 );
 
 // Reposition the camera
-camera.position.set(5,5,0);
+camera.position.set(15,15,15);
 
 // Point the camera at a given coordinate
 camera.lookAt(new THREE.Vector3(0,0,0));
@@ -46,10 +47,13 @@ var renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize( window.innerWidth, window.innerHeight );
 
 // Set a near white clear color (default is black)
-renderer.setClearColor( 0xfff6e6 );
+renderer.setClearColor( 0x000000 );
 
 // Append to the document
 document.body.appendChild( renderer.domElement );
+
+var light = new THREE.AmbientLight( 0x404040, 3 ); // soft white light
+scene.add( light );
 
 var drops = new THREE.Group();
 
@@ -70,9 +74,14 @@ function animate() {
   requestAnimationFrame( animate );
 
   drops.children.forEach(function(drop) {
-    drop.position.y -= 2;
+    if (drop.position.y > 2.5) {
+      drop.position.y -= .5;
+    } else {
+      drop.scale.y = drop.scale.y * 0.5;
+      drop.position.y -= .25;
+    }
     drop_check(drop)
-    console.log(drop.position.y)
+
   })
   renderer.render (scene, camera);
 }
