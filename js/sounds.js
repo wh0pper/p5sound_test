@@ -1,12 +1,8 @@
 var song;
 var amplitude;
-// var volHistory = [];
 
 function setup() {
-  createCanvas(900, 500);
-
-  // button = createButton("play");
-  // button.mousePressed(togglePlay)
+  createCanvas(800, 800);
   song = loadSound('resonance.mp3', loaded);
   amplitude = new p5.Amplitude();
   frameRate(60);
@@ -18,22 +14,11 @@ function loaded() {
   song.play();
 }
 
-// function togglePlay() {
-//   if ( song.isPlaying() ) {
-//     button.html("play");
-//     song.pause();
-//   } else {
-//     button.html("pause");
-//     song.play();
-//   }
-// }
-
 function draw() {
-  // line
-    background(0);
+  background(0);
   var vol = amplitude.getLevel();
   // line(0,vol*height,width, vol*height);
-  console.log(vol);
+  // console.log(vol);
   ellipse(width/2,height/2,500*vol,500*vol);
   // beginShape();
   // volHistory.push(vol);
@@ -47,10 +32,8 @@ function draw() {
 
 function mousePressed() {
   if ( song.isPlaying() ) {
-    // button.html("play");
     song.pause();
   } else {
-    // button.html("pause");
     song.play();
   }
 }
